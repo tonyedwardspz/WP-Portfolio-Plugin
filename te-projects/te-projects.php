@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Tony's Portfolio Plugin
-Plugin URI: http://github.com/tonyedwardspz/WP-Portfolio-Plugin
+Plugin URI: #
 Description: A simple plugin that creates and display a projects portfolio with WordPress using custom post types!
 Author: Tony Edwards
 Version: 1.0
