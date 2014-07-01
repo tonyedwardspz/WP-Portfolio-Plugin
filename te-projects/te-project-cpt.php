@@ -1,6 +1,6 @@
 <?php
 
-add_action('init', 'te m b _projects_register');  
+add_action('init', 'te_projects_register');  
   
 function te_projects_register() {  
     $args = array(  
