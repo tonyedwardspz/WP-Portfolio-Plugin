@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Tony's Portfolio Plugin
-Plugin URI: #
+Plugin URI: http://github.com/tonyedwardspz/WP-Portfolio-Plugin
 Description: A simple plugin that creates and display a projects portfolio with WordPress using custom post types!
 Author: Tony Edwards
 Version: 1.0
@@ -59,14 +59,61 @@ function te_projects_get_featured_image($html, $aid=false){
 	return $img;
 }
 
-
-
 /**Display Functions and Shortcodes**/
 
+// get the custom project link
 function te_projects_get_link($id){
 	$url= get_post_custom_values('te_projects_link', $pid); 
 	return ($url[0] != '') ? $url[0] : false;
 }
 
+// get the skills taxonomies
+// used to display the skills and tools in the single portfolio view
+function custom_taxonomies_skills() {
+    global $post, $post_id;
+    // get post by post id
+    $post = &get_post($post->ID);
+    // get post type by post
+    $post_type = $post->post_type;
+    // get post type taxonomies
+    $taxonomies = get_object_taxonomies($post_type);
+    $out = "<ul>";
+    foreach ($taxonomies as $taxonomy) { 
+    	if ($taxonomy == 'te-skill-type' ){
+	        // get the terms related to post
+	        $terms = get_the_terms( $post->ID, $taxonomy );
+	        if ( !empty( $terms ) ) {
+	            foreach ( $terms as $term )
+	            	//build the list
+	                $out .= "<li>".$term->name."</li>";
+	        }
+	    }
+	}
+    $out .= "</ul>";
+    return $out;
+} 
+
+
+// get taxonomies for project type
+// used to filter posts of the portfolio category
+function custom_taxonomies_terms_links() {
+    global $post, $post_id;
+    // get post by post id
+    $post = &get_post($post->ID);
+    // get post type by post
+    $post_type = $post->post_type;
+    // get post type taxonomies
+    $taxonomies = get_object_taxonomies($post_type);
+    
+    foreach ($taxonomies as $taxonomy) {
+        // get the terms related to post
+        $terms = get_the_terms( $post->ID, $taxonomy );
+        if ( !empty( $terms ) ) {
+            foreach ( $terms as $term )
+                $out .= $term->name.' ';
+        }
+    }
+    return $out;
+}
 
 ?>

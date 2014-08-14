@@ -18,6 +18,8 @@ function te_projects_register() {
     register_post_type( 'portfolio' , $args );  
     register_taxonomy("te-project-type", array("portfolio"), array("hierarchical" => true, "label" => "Project Type", "singular_label" => "Project Type", "rewrite" => true));
 
+    // skills
+    register_taxonomy("te-skill-type", array("portfolio"), array("hierarchical" => true, "label" => "Skills & Tools", "singular_label" => "Skill of Tool", "rewrite" => true));
 }  	
 
 add_action("admin_init", "te_projects_admin_init");  
@@ -36,7 +38,7 @@ function te_projects_options(){
 ?>  
     <input name="te_projects_link" placeholder="http://" value="<?php echo $link; ?>" />  
 <?php  
-    }  
+}  
 
 
  add_action('save_post', 'te_projects_save');  
